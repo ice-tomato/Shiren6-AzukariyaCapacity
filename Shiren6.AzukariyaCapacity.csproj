@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>Shiren6.AzukariyaCapacity</AssemblyName>
+    <RootNamespace>Shiren6.AzukariyaCapacity</RootNamespace>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!--
+      Override this at build time if Steam/Shiren 6 is installed elsewhere:
+      dotnet build -c Release -p:Shiren6Dir="D:\SteamLibrary\steamapps\common\ShirenTheWanderer6"
+    -->
+    <Shiren6Dir Condition="'$(Shiren6Dir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\ShirenTheWanderer6</Shiren6Dir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BepInEx.Core">
+      <HintPath>$(Shiren6Dir)\BepInEx\core\BepInEx.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="BepInEx.Unity.IL2CPP">
+      <HintPath>$(Shiren6Dir)\BepInEx\core\BepInEx.Unity.IL2CPP.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>$(Shiren6Dir)\BepInEx\core\Il2CppInterop.Runtime.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="0Harmony">
+      <HintPath>$(Shiren6Dir)\BepInEx\core\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(Shiren6Dir)\BepInEx\interop\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>$(Shiren6Dir)\BepInEx\interop\Il2Cppmscorlib.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="CheckShiren6References" BeforeTargets="ResolveReferences">
+    <Error
+      Condition="!Exists('$(Shiren6Dir)\BepInEx\core\BepInEx.Core.dll')"
+      Text="BepInEx was not found under '$(Shiren6Dir)'. Install BepInEx 6 Unity.IL2CPP first, or pass -p:Shiren6Dir=&quot;...&quot;." />
+    <Error
+      Condition="!Exists('$(Shiren6Dir)\BepInEx\interop\Assembly-CSharp.dll')"
+      Text="BepInEx\interop\Assembly-CSharp.dll was not found. Launch Shiren 6 once after installing BepInEx so the interop assemblies are generated." />
+    <Error
+      Condition="!Exists('$(Shiren6Dir)\BepInEx\interop\Il2Cppmscorlib.dll')"
+      Text="BepInEx\interop\Il2Cppmscorlib.dll was not found. Launch Shiren 6 once after installing BepInEx so the interop assemblies are generated." />
+  </Target>
+
+</Project>
