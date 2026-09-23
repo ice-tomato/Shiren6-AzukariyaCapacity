@@ -1,5 +1,7 @@
 # Shiren 6 Azukariya Capacity
 
+![あずかり屋の容量を9600個に拡張](docs/azukariya-9600.jpg)
+
 Steam版『風来のシレン6 とぐろ島探検録』の **あずかり屋** の容量上限を拡張する BepInEx 6 / IL2CPP 用MODです。
 
 標準の **960個** を **9600個** に拡張します。
